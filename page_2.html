@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+    body{
+        background-color: #ffefcc
+    }
+    </style>
+    <title>Alex Fantine's Research</title>
+  </head>
+
+  <body>
+    <h2> 7/16-7/21- Learning about Neural Networks Through Keras </h2>
+
+    <p>
+      Over the past few days, I've begun the main part of my research- that is, trying to
+      learn how and build a Neural Network in Python's ML frontend, Keras.
+      I've been pacing myself through Sentdex's incredibly informative YouTube series
+      about NNs (<a href= "https://www.youtube.com/watch?v=wQ8BIBpya2k&list=LLPpsgJI-4d09qtgYpEPUQRQ&index=5&t=0s">here</a> is the link to that), which involved building a few different
+      models in Keras in a few different ways. I started with a simple neural network, which
+      reminded me of some of the research I did a while back when first delving into
+      Keras. It refreshed my memory on a few key components of NNs, including:
+      <!-- The ul command starts an unordered list, where each item is li. -->
+      <dl> <!-- This is a description list, i.e. dt is the item and dd is the description-->
+        <dt> <b> Activation Function: </b> </dt>
+        <dd> These are the functions used to calculate the new layer's values for its nodes,
+        involving a summation of the product of the previous layer's values and an applied weight.
+        Some activation functions include "sigmoid", which returns a value between 0 and 1, and
+        "relu" or rectified linear, which is the most widely used one in deep neural nets (2
+        or more hidden leayers).</dd>
+
+        <dt> <b> Layers: </b> </dt>
+        <dd> Layers are the matrices of NNs that contain all of the useful info, including
+        node values, weights, and more. A NN is comprised of the input layer, a hidden layer,
+        and the output layer. There are different types of layers, including Dense layers,
+        where each input is connected to every output by a weight (fully connected) and
+        convolutional layers. </dd>
+
+        <dt> <b> Convolutional Neural Networks: </b> </dt>
+        <dd> Most often used for image classification/analysis, CNNs work by breaking the image
+        data into smaller and more recognizable patterns. This means that their structure
+        usually consists of layers where convolution and pooling occur. In convolution,
+        images are separated into sections containing just a few pixels and structures are
+        located within those sections. Then in the pooling step, usually maxpooling, the max
+        values is located and that info is sent to the next layer. </dd>
+      </dl>
+
+      I then continued into learning about CNNs, which although likely not useful for the
+      kind of network I want to build, was very helpful in expanding my overall understanding
+      with NNs and my comfort with using Keras.
+    </p>
+
+    <p>
+    The last few videos in Sentdex's tutorial series were about Recurrent Neural Networks,
+    the kind that I would be using for my project. These networks have one key feature
+    that sets them apart from their brethren: the order of data carries significance.
+    The two primary problems for which this is of vital importance are time series problems,
+    where pieces of data are chronologically organized, and natural language applications,
+    since the order of words on a page affect the meaning. This section of the tutorial
+    was probably the most complex, and I learned of the importance of preprocessing data,
+    which ended up being the much more time consuming than the actual construction of the
+    model. I learned a couple of other facts from my time constructing this RNN, including:
+
+    <ul>
+      <li> Dropout is added after Long-Short-Term-Memory layers as a way of making
+        sure the model doesn't overfit, or basically memorize the training data. </li>
+
+      <li> The "return_sequences" paramter in LSTM layers should always be true if
+        the next layer is not a Dense layer. </li>
+
+      <li> The model learns better if the input data is normalized before starting to be
+        between 0 and 1. </li>
+    </ul>
+
+    Along the way, I also learned some useful tidbits of information, like how to run a
+    TensorBoard visual analysis tool, which basically graphs my models, and how to use
+    this feature remotely, meaning I can run my models on the William & Mary systems and
+    analyze their performance from my laptop!
+    </p>
+
+    <p>
+      There is still a lot to learn about Recurrent Neural Networks, and LSTM Networks,
+      particularly with relation to Natural Language Processing. My next steps are to
+      look for Keras tutorials with those specifics in mind, all the while delving deeper
+      into a general understanding of Machine Learning. The other facet of my research
+      is reading about biases in ML and how those might be countered, which could raise
+      some interesting phiosophical and ethical questions (what is considered a "good" bias?
+      Is there such a thing?). I look forward to continuing my research and keeping this
+      site updated with what I find!
+    </p>
+
+    <p> <a href= "index.html">Previous Page</a>
+      <br/> <a href="page_3.html">Next Page</a>
+    </p>
+  </body>
+</html>

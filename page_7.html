@@ -1,0 +1,187 @@
+<!DOCTYPE = html>
+
+<html>
+  <head>
+    <style>
+    body{
+        background-color: #ffefcc
+    }
+    </style>
+    <title>Alex Fantine's Research</title>
+  </head>
+
+  <body>
+    <h2> 8/16-8/21- Improving A Text Classifier and Generator </h2>
+
+    <p>
+      As a refresher for those of you who may have missed out on part of this adventure I've been on,
+      I'm attempting to find the optimal diversity value for generating text by simulating a type
+      of neural network called a General Adversarial Network, where two models, one a generative algorithm
+      and the other a discriminative algorithm (something that classifies data) basically work to improve
+      each other. My simplified version of this is using a headline classifier (that classifies headlines
+      as real or fake) to measure the overall percent of false positives in a set of 100 (I've decreased the
+      size of this sample for performance reasons) headlines generated with a randomized diversity. That way,
+      the average diversity with the highest percent of false positives (trick the classifier into
+      thinking the fake headline is real) is the best value to use. The first time I attempted this
+      experiment, the classifier told me that of my 1000 generated headlines, 750 of them were real,
+      meaning it only had an accuraccy of around 25%, which is terrible. So, I decided that the only solution
+      was to build a better classifier with more data, which requires a better generator to generate
+      50,000 new headlines of various lengths.
+    </p>
+
+    <p>
+      Using the <a href="https://www.kaggle.com/snapcrack/all-the-news" > all the news dataset </a> from
+      Kaggle, which contained three files of 50,000 news articles each, I decided that to train my
+      new classifier, I would use 50,000 of those real headlines, and generate 50,000 fake ones using
+      an improved generator trained on one of these three files. Whew! That means the classifier is trained
+      on a total of 90,000 headlines (90% training, 10% testing) of varying lengths, which is nearly
+      6x the number of headlines as before! I also reexamined the architecture of the classifier and
+      figured that since I'm trying to classify text, this problem might be better solved by a
+      LSTM model that's compiled with binary crossentropy rather than categorical, since I'm not
+      trying to guess the next possible word in the sequences but rather classify it as a 1 or 0.
+      So, my first step was to create the fake headlines so I could train this new classifier!
+    </p>
+
+    <p>
+      One of the issues with my previous classifier was that all of the fake headlines I used to train
+      it were of length 5 words, meaning the classifier might have been using length as a feature and
+      therefore classifying all headlines of length 5 as fake. I had previously thought about re-training
+      my generator with some sort of endline character, so that the generated headlines would naturally
+      come to a conclusion. I first tried to preprocess the data by keeping the newline character on
+      the end of the sentences, but realized quickly that the piece of code that encodes and decodes
+      the headlines as ascii characters would prevent the newline from actually being registered by the model.
+      So, I appended the ending token "asdf" to each headline, representing the point where
+      the headline should be cut off (I made sure that this token wasn't already in the vocabulary). This way,
+      once I generated a headline, all I had to do was trim it up to the point that the ending token
+      occurred naturally. This led to headlines of various lengths, including ones as short as
+      3 words and ones as long as 15.
+    </p>
+
+    <p>
+      Training the generator with headlines that contained ending tokens solved one of my problems, but there
+      was another huge issue with the first generator: it just didn't have enough training data. This caused
+      overfitting, repetition, and generally boring or samey headlines even when the diversity value
+      increased dramatically. So, I decided to use 50,000 headlines as training data for the generator
+      as opposed to 8,600, which is a pretty significant increase. In fact, this increase was so significant
+      that when all the headlines had been split up into sequences (a total of 465,240 sequences) and fed into
+      the model, there were over 5 million paramters and the fitting time for the model was over 24 hours...
+    </p>
+
+    <p><img id="meme2" alt="No From Me" src="./no_from_me.jpg"></p>
+
+    <p>
+      In order to decrease the model fit time, I randomly shuffled the headlines and truncated the latter
+      half, leaving me with 25,000 headlines, closer to 2.5 million parameters, and a fit time of 8 hours.
+      This was still a long time, but it was much more optimistic than 24 hours and doable overnight.
+      Unfortunately, improving and re-running my "GAN", which was supposed to be a one to two day
+      endeavor, ended up taking around a week. The first new generator I tried to create was terrible, and
+      it took 8 hours. I then tried to normalize the data by dividing each integer in each headline array
+      by the largest index value (the last vocabulary word's integer value) to make the values between 0 and 1,
+      which again took 8 hours and created some weird problems, like the first value in the predictions
+      array always being a perfect 1 (so it would always select this value, which for some reason didn't
+      correspond to a word in the vocabulary). I tried just ignoring this value by truncating it from
+      the predictions array, which solved that immediate problem, but it certainly didn't make the fake
+      headlines any less trash!
+    </p>
+
+    <p>
+      <ul>
+        <li> Problem: my models take 8+ hours to fit, so I can't afford to waste any time making models where the
+          loss doesn't consistently decrease.
+            <ul>
+              <li> Solution: change the batch size of each compilation, which is the amount of data samples the model
+                reads before backpropagation. The larger this value, the less time it takes to complete an epoch, but
+                the less accurate the model might be (default 32).
+            </ul>
+
+        <li> Problem: normalizng my data doesn't seem to be working in this case, because when I do, the loss
+          instantly goes down to below 0.001 and then remains stagnant. This leads me to believe that
+          normalizing the data leads to the model overfitting and creating repeat headlines. </li>
+            <ul>
+              <li>
+                Solution: don't normalize the data, change the model architecture.
+            </ul>
+
+        <li> Problem: my model is less accurate because the batch size is larger.
+          <ul>
+            <li>
+              Solution: add another LSTM layer and another Dense layer before the final one.
+          </ul>
+
+        <li> Problem: adding layers increases the fit time as well!
+          <ul>
+            <li>
+              Solution: decrease the number of neurons in each layer.
+          </ul>
+
+      </ul>
+    </p>
+
+    <p>
+      After working through the myriad problems and coming up with solutions to each of them,
+      I finally had a model that would generate decent headlines with a minimum amount of repetition. I then took
+      another look at exactly how I was generating my fake headline dataset. Before, I would generate five headlines
+      with the same seed text and different diversites for each word, starting with a set of 1.2 through 1.6, and then
+      five more with that same seed text and diversities 2.1 through 2.5. The problem with this is that those ten
+      headlines all share the same seed text, so out of 1,000 headlines, there would only be 100 unique starting
+      words (out of a total vocabulary of 11,265). So, for generating my 50,000 fake headlines, I generated groups of
+      5 headlines with the same diversity value across the board (now a float between 1.2 and 2.9), each with
+      a random seed text. I generated these headlines overnight so that I could build my classifier in the morning.
+    </p>
+
+    <p>
+      It took me a couple of iterations to get the clasifier working at a level I wanted, but after changing the architecture
+      to more closely resemble the generator, the classifier started working pretty well, with an validation accuraccy of
+      around 88% and only 5% false positives when checked on the test data. However, the real test would be to
+      run the classifier against new headlines generated that weren't in the training or test data, and see if the number
+      of false positives was less than 75% lke the last time. So, I loaded in my new generator and my new classifier to
+      the "GAN" simulation, and I generated 100 fake headlines (in groups of 5 with the same diversity and all different
+      seed text) and recorded the number of false positives. Thankfully, the experiment ran pretty successfully! The
+      fewest false positives I encountered was 6%, which is really close to the 5% from the test data, and the most was
+      around 23-25%, which is an incredible improvement over 75%! I decided that these stats were good enough
+      to run my experiment on, and so I tested the generated headlines with the classifier over and over again
+      (I generated over 750,000 fake headlines).
+    </p>
+
+    <p>
+      I made a simple method to take the average of the diversities with the greatest number of false positives.
+      Since I tested hundreds of diversities, a lot of them ended up with the same number of false positives. So,
+      I had to create dictionaries to store a number of false positives and its corresponding diversities. Then,
+      all I have to do is average all the diversities from max false positives (the keys of the dict) and I'd have
+      a diversity likely to generate a lot of false positives! Taking all the diversities from the 5 highest
+      false positive scores, we get a diversity of 1.5911429988969323. Taking all the diversities from the 7
+      highest false positive scores, we get a diversity of 1.626816675757897. The more false positive scores you
+      factor in, the higher that average diversity level rises, which leads me to believe that a higher diversity
+      is actually detrimental, as it corresponds to a lower average number of false positives. I then generated
+      some headlines with diversites between .5 and .9, since they had an average greater number of
+      false positives. Here are a few of those headlines:
+      <ul>
+        <li> fenway attacked ezell to rule islamic refugees in japan </li>
+        <li> lafleur police attack kills dozens in france </li>
+        <li> macys is right about iran </li>
+        <li> typo bans adults instagram following ambush </li>
+        <li> deranged teens dzhokhar tsarnaev arrested for parole </li>
+        <li> yahoos challenge why hes going to change north carolina </li>
+        <li> blast police assaulted at lax injuring jihad </li>
+        <li> whiskey driver gunned down in minnesota ihop </li>
+        <li> margaritaville driver continues into saudi border </li>
+      </ul>
+    </p>
+
+    <p>
+      I'm working on finishing up Cathy O'Neil's book, "Weapons of Math Destruction," which is a fascinating and informative
+      read that I'm excited to share with you in a future update. I'll also be looking into getting some python code
+      up and running on this site so you can generate your own headlines using my model, along with reorganizing and beautifying
+      the layout of this site. Building these models has been an incredible learning experience, and although my time working
+      on this research for the Monroe project is coming to an end, I definitely plan on continuing. I'm captivated by
+      machine learning, natural language processing, and the ways our bias can play into the algorithms we use everyday.
+      I'll also be adding the full code for my generator, my classifier, and my "GAN" simulation to my GitHub, after I've
+      cleaned it up a bit.
+    </p>
+
+    <p> <a href= "page_6.html">Previous Page</a>
+      <br/> <a href="page_8.html">Next Page</a>
+    </p>
+
+  </body>
+</html>

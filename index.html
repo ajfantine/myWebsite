@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+    <title>Alex Fantine</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="colors.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="index_script.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Header HTML, containing name and social medias -->
+    <div id="top" class="w3-display-container">
+      <img src="./images/wide_stars.jpg" style = "width:100%;height:200px;" >
+      <div class="w3-display-middle w3-large">
+        <h1 class="alex_header w3-animate-zoom"><b><i>ALEX FANTINE</i></b></h1>
+        <h3 class="subheader">
+          <a href="https://github.com/ajfantine" class= "social-media" target="_blank">Github</a>
+          <span class="highlight">||</span>
+          <a href="https://www.linkedin.com/in/alex-fantine/" class= "social-media" target="_blank">Linkedin</a>
+          <span class="highlight">||</span>
+          <a href="https://www.facebook.com/alex.fantine" class= "social-media" target="_blank">Facebook</a>
+          <span class="highlight">||</span>
+          <a href="mailto:ajfantine@email.wm.edu" class= "social-media">Email</a>
+        </h3>
+      </div>
+    </div>
+
+    <!-- Menu Bar HTML, containing info for menu bar and script for stickiness -->
+    <div id="menu-bar" class="w3-bar">
+      <!--Home Button -->
+      <a href="#top" class="menu-item w3-bar-item w3-button" style="border-right: solid 3px var(--main-navy);width:25%;"> <i>Home </i></a>
+      <!--About Button-->
+      <a href="#about-anchor" class="menu-item w3-bar-item w3-button" style="border-right: solid 3px var(--main-navy);width:25%;"> <i>About</i> </a>
+      <!--Research Blogs Dropdown, maybe change this to a regular button and have two animated tabs for the choices?-->
+      <a href="#research-anchor" class="menu-item w3-bar-item w3-button" style="border-right: solid 3px var(--main-navy);width:25%;"> <i>Research Blogs</i> </a>
+      <!--Projects Dropdown, maybe change this to a regular button and have two animated tabs for the choices?-->
+      <a href="#project-anchor" class="menu-item w3-bar-item w3-button" style="width:25%;"> <i>Projects</i> </a>
+    </div>
+    <!--Sticky Script-->
+    <script>
+      window.onscroll = function() {menuFixed()};
+      var menu = document.getElementById("menu-bar");
+      var sticky = menu.offsetTop;
+    </script>
+
+    <!-- Page Content HTML, including Home, About, Research Blogs, and Projects -->
+    <div class="page-content">
+
+      <div id="home-container">
+        <div id="bio-container">
+          <div id="icon-div">
+            <img id="icon-img" src="./images/parkpic.jpg" class="w3-circle">
+          </div>
+          <div id="bio">
+            <p id="bio-par" class="gen-font"> <code>Hello, world! </code>I'm a student at the College of William & Mary with a passion for
+              technology, connection, and innovation. I love to help others develop an interest in Computer Science
+              and learn from them, improving my ever-growing technological skill set. My unique experience with
+              theatre has given me the ability to seek out the human element in technology, and I hope to better
+              share that element with my various communities, improving them. I also want to use technology to help people, and
+              have recently discovered a passion for trying to improve not just machine learning algorithms but the data
+              we use to build them and how we use them.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="about-anchor"></div>
+      <div id="about-content">
+        <div id="about" class="gen-font">
+          Basically, I really like Computer Science. I enjoy it in all forms, and I've recently discovered that I enjoy it
+          particularly in the context of linguistics and natural language processing. I've thus decided to pursue double majors
+          in Linguistics and Computer Science at William & Mary. But I'm not just into CS and programming! I also:
+          <ul>
+            <li> Appreciate theatre in all forms, and have played many characters, including Cyrano de Bergerac, The Beast, and most
+              recently, Dr. Joseph Cardin in <i> The Children's Hour </i> </li>
+            <li> Know how to play the guitar (mostly acoustic, and I'd really like to get back into it!) </li>
+            <li> Love The Transformers, particularly the comic series <i> More Than Meets the Eye </i>. Ask me about it sometime!</li>
+            <li> Enjoy creative writing, and have had one of my stories published in William & Mary's "Winged Nation" program! </li>
+          </ul>
+          See, I'm more than just 1's and 0's! Although admittedly, that's also a huge part of who I am. In fact, my passion for all
+          things tech has led me to invest a lot more than just class time in the subject; in 2018-2019, I served as William & Mary's
+          hackathon chair, where I led the organization (and re-branding!) of our annual hackathon, now called Cypher (check out the
+          <a href="http://cypher.cs.wm.edu/"> website</a>). I've also served as a CS Lab Consultant for two semesters now, and am
+          currently serving as our ACM (Association for Computing Machinery) Vice Chair. I've also competed in a few hackathons, including
+          PennApps 2018 and HoyaHacks 2019, where at the latter my teammate and I won the Amazon Development Prize for our Alexa Skill,
+          "fMoods, feelin' hungry?" You can view these projects on <a href="https://github.com/ajfantine"> my GitHub </a>.
+        </div>
+      </div>
+
+      <div id="research-anchor"></div>
+      <div id="research-content">
+        <div id="research" class="gen-font">
+          During my time studying Computer Science at William & Mary, I've also worked on a few research projects. My freshman summer project
+          was called "Dungeons and Dragons," and involved trying to teach my computer how to play through some simple text-based games that I
+          wrote. It wasn't advanced or revolutionary by any means, but it did teach my quite a bit about Python's NLTK library and Natural
+          Language Processing as a whole, along with what research in CS might look like. It actually inspired my sophomore summer research
+          project, which was "Countering Human Bias in Machine Learning Algorithms Through Natural Language." A real mouthful of a title,
+          I know, but that really says it all. I worked with Python's keras ML frontend to make some LSTM Neural Networks that generated
+          news headlines, and researched the ways human bias could play into ML algorithms. You can read about my research experiences in
+          my blog posts, if you follow the corresponding links below!
+        </div>
+        <div class="link-button" >
+          <a href="./monroe_2019_home.html" class=" link-button header-font" target= "_blank" > <i>Monroe 2019 </i></a>
+        </div>
+        <div class="link-button" >
+          <a href="https://freshmanmonroe.blogs.wm.edu/2018/07/24/dragons-data-update-1/" class=" link-button header-font" target="_blank" > <i>Monroe 2018 </i></a>
+        </div>
+      </div>
+
+
+      <div id="project-anchor"></div>
+      <div id="project-content">
+        <div id="project" class="gen-font">
+          I don't just like organizing hackathons; I love to attend hackathons at other schools! Below you will find links
+          to the projects that I've worked on at hackathons, including a crowdsourced food-rating platform for William & Mary's
+          dining halls and an Alexa skill that provides a restaurant reccomendation based on your mood. I will be attending
+          RamHacks 2019 in a few weeks, so when I return, I'll upload the code for that project, too! I guess you could also
+          consider this website a project, since I had to learn all about HTML/CSS to make it look like this (trust me, you don't
+          want to see what it looked like before!).
+        </div>
+        <div class="link-button" >
+          <a href="https://github.com/ajfantine/hoyaHacks" class=" link-button header-font" target="_blank" > <i>HoyaHacks 2019 </i></a>
+        </div>
+        <div class="link-button" >
+          <a href="https://github.com/ajfantine/pennApps" class=" link-button header-font" target="_blank" > <i>PennApps 2018 </i></a>
+        </div>
+      </div>
+
+    </div>
+    <footer id="footer" class="gen-font">
+      Website by Alex Fantine, Copyright 2019
+    </footer>
+
+
+
+    <!--
+    <div class="w3-content w3-display-container" style="background-color: var(--main-navy); max-width:1000px;">
+      <img class="home_slides" src="./images/cypher1.jpg" style="width:100%">
+      <img class="home_slides" src="./images/hoya.jpg" style="width:100%">
+      <img class="home_slides" src="./images/fat1.jpg" style="width:100%">
+      <img class="home_slides" src="./images/kentucky.jpg" style="width:100%">
+
+      <div class="w3-center w3-container w3-section w3-large w3-text-orange w3-display-bottommiddle" style="width:100%;">
+        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)"> &#10094; </div>
+        <div class="w3-right w3-hover-text-white" onclick="plusDivs(1)"> &#10095; </div>
+        <span class="w3-badge dot w3-border w3-transparent w3-hover-orange" onclick="currentDiv(1)"></span>
+        <span class="w3-badge dot w3-border w3-transparent w3-hover-orange" onclick="currentDiv(2)"></span>
+        <span class="w3-badge dot w3-border w3-transparent w3-hover-orange" onclick="currentDiv(3)"></span>
+        <span class="w3-badge dot w3-border w3-transparent w3-hover-orange" onclick="currentDiv(4)"></span>
+      </div>
+    </div>
+
+    <script>
+      var slideIndex = 1;
+      showDivs(slideIndex);
+    </script>
+  -->
+
+  </body>
+</html>

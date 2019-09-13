@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+    body{
+        background-color: #ffefcc
+    }
+    </style>
+    <title>Alex Fantine's Research</title>
+  </head>
+
+
+  <body>
+    <h2>  7/22-7/27- Experimenting with Neural Networks </h2>
+
+    <p>
+      This week, in addition to working through even more tutorials on neural
+      networks and machine learning with Keras, I've begun to experiment with the
+      knowledge I've gained. I've also realized that this project of mine started
+      with a pretty lofty goal, and in order to even begin to attempt correcting biases
+      in algorithms, I'll need to understand a few things: what neural networks are/how
+      they work, how to create them, and what bias in ML looks like. There is always
+      a deeper level for me to chase with regards to understanding NNs, and although I
+      feel like I've reached a decent point, I'd like to continue deeper. More specifically,
+      I plan on researching the math behind gradient descent, backpropagation, and the different
+      activation functions. I've already learned a bit about 'relu,' or rectified linear,
+      and all it does is choose the max between 0 and the value of the neuron. The rest
+      of the math in ML isn't as simple, seeing as it's a mix between linear algebra and
+      calculus, but I think I can develop a basic understanding of these underlying
+      mechanisms.
+    </p>
+
+    <p>
+      The second main chunk of my research, learning how to create models, is off
+      to a great start. In addition to numerous tutorial models, I began Experimenting
+      with the creation of my own models. I had a hypothesis about how a model might
+      weigh certain data, so I tested it with two different data sets. I generated a lot
+      of data, where each piece was an array of four numbers, with the fourth one being the sum of the
+      first three. I then set the target (label) for each array to a 1 if the sum was positive
+      and a 0 if the sum was negative. Once I trained the model with this dataset, I fed
+      it some data to see if it could predict correctly. My hypothesis was that the model
+      would place a heavy weight on the fourth value, the sum, and barely consider the
+      first three values. When I fed the model an array like [6, 9 , 13, -10], where
+      the sum is actually positive but the fourth value is negative, it returned a 0, meaning
+      it thought the sum was negative. I confirmed my hypothesis by checking the weights,
+      and the weights for the fourth value were all far heavier than the rest. You can view
+      the code for this below:
+    </p>
+        <iframe width="560" height = "315" src="experiment_1.py" frameborder="1"></iframe>
+
+    <p>
+      My second experiment was to train the same model with data that didn't contain that
+      fourth value, but the labels were all the same. This model performed far better
+      and was more accurate, although I found that the sigmoid function squashing my
+      data on the output layer didn't strictly result in a binary value, rather it would
+      get incredibly close to 0 or 1 depending on how close the sum was to 0. For example,
+      [-3,0,2] actually returned 1.84e-06. When the values summed to zero, such as on
+      [-3,1,2], the prediction was around 0.5. halfway between 0 and 1. I didn't expect
+      the model to do this, although it makes sense that it would just approach a target
+      value since it's making a prediction about the likelihood of that value being correct.
+      You can view the code for this experiment below:
+    </p>
+        <iframe width="560" height="315" src="experiment_2.py" frameborder="1"></iframe>
+
+    <p>
+      So what's the takeaway from all this? By performing these test, I have a better understanding
+      of how the model approaches "learning" a dataset. It simply looks for patterns in the
+      data and tries to recognize them in new data. I also gave the model less credit
+      than I should have; I wasn't sure it would be able to correctly predict on the second
+      experiment because it was weighting the three input values more evenly, but it proved me wrong.
+      Mainly, I learned the importance of preprocessing data. The fourth value in the array
+      seemed like important information, but in reality, it detracted from the model's ability
+      to make proper judgements since the model learned to rely on that input value.
+    </P>
+
+    <p>
+      The last part of my research involves reading lots and lots about bias in ML,
+      and this is what I will be focusing on this week. I've purchased the book
+      "Weapons of Math Destruction" by Cathy O'Neil, which discusses the dangers of big data
+      and ML algorithms and how they can perpetuate discrimination when unregulated.
+      Some of the other readings I've done about machine bias (different than learning bias,
+      which is an important mathematical concept in ML) have discussed the value of making
+      sure the data the model trains with is diverse and representative of the population.
+      Joy Buolamwini, creator of the
+      <a href="https://www.ajlunited.org/"> "Algorithmic Justice League," </a> discusses this in
+      her Ted Talk and on her website, with regards to facial recognition:
+      "A lack of diversity in the training set leads to an inability to easily characterize
+      faces that do not fit the normal face derived from the training set."
+      (<a href="https://medium.com/mit-media-lab/incoding-in-the-beginning-4e2a5c51a45d#.efx8zxith"> Source </a>)
+      I've barely scratched the surface of how human bias can impact ML algorithms, and I'm looking forward
+      to reading through O'Neil's book and Nicole Shadowen's thesis, entitled
+      "Ethics and Bias in Machine Learning," to further my research.
+    </p>
+
+    <p> As my research begins to splinter into three distinct subjects, I find myself
+      eager to proceed. I'm relegating the deeper, math-y part of my research so that
+      I can focus on the machine bias aspect, since figuring out ways to counter that
+      was what drove me to choose this project. With regards to model construction,
+      I'm looking into text generation models using RNNs in Keras, and will continue to
+      follow tutorials and experiment with what I've learned. My main focus this next week
+      is to read my two main resources and see what I discover about machine bias. I will
+      continue to update this blog weekly and once I finish reading each of my main
+      pieces!
+    </p>
+
+    <p> <a href= "page_2.html">Previous Page</a>
+      <br/> <a href="page_4.html">Next Page</a>
+    </p>
+
+
+  </body>
+</html>

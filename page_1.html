@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+    <title>Alex Fantine</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="colors.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="blog_home.css">
+    <script src="index_script.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Header HTML, containing name and social medias -->
+    <div id="top" class="w3-display-container">
+      <a href="monroe_2019_home.html" id="border-link">
+        <img src="./images/wide_stars.jpg" style = "width:100%;height:200px;" >
+        <div class="w3-display-middle w3-large">
+          <h1 class="alex_header w3-animate-zoom"><b><i>MONROE 2019</i></b></h1>
+        </div>
+      </a>
+    </div>
+
+    <!-- Menu Bar HTML, containing info for menu bar and script for stickiness -->
+    <div id="menu-bar" class="w3-bar">
+      <!--Back to Top -->
+      <a href="#top" class="menu-item w3-bar-item w3-button" style="width:100%;"> <i>Back to Top </i></a>
+
+    </div>
+    <!--Sticky Script-->
+    <script>
+      window.onscroll = function() {menuFixed()};
+      var menu = document.getElementById("menu-bar");
+      var sticky = menu.offsetTop;
+    </script>
+
+    <div class="blog-content gen-font">
+      <h3 class="header-font"> 2/15/19- The Start of It All </h3>
+      <p class="gen-font">
+        This is the start of my research findings. I am testing my ability to write
+        a basic html file. Let's hope it works!
+      </p>
+      <p class="gen-font">
+        <a href="research_proposal.html">This</a> is a link to my research proposal.
+      </p>
+      <h3 class="header-font"> 2/17/19- Researching Neural Networks </h3>
+
+      <p class="gen-font">
+        &nbsp;&nbsp;&nbsp;&nbsp; Having figured out the process of getting a webpage set-up and writing an html file,
+        I've started looking into what knowledge I need in order to actually make a project that
+        works the way I want it to. However, in order to understand Long-Short-Term-Memory
+        Recurrent Neural Networks, I first have to understand the basics behind Neural Networks
+        as a whole. So, using <a href= "https://www.youtube.com/watch?v=aircAruvnKk"> 3
+        Blue1Brown's excellent YouTube series about Deep Learning </a> as
+        a starting point, I'm going to try and describe how Neural Networks work, all from memory.
+        This is a test to see how well I've retained all of the information from the video series.
+      </p>
+
+      <p class="gen-font">
+        &nbsp;&nbsp;&nbsp;&nbsp; Neural Networks (NN) are a series of vectors containing values between 0 and 1 that
+        represent different layers of abstraction and pattern-detecing based on an input.
+        Say for instance, like in the example from the video, the input is a picture of
+        a hand drawn letter. Each pixel of that picture contains a value represnting the gradient
+        to which the pixel is filled in (with 0.0 being white and 1.0 being black and a range
+        of shades in between), and those values would be saved in a vector, which then represents
+        the first layer of the NN (comprised of the 'neurons,' or the pixel values).
+        The goal is to pass the input vector into a series of layers and eventually have
+        the final layer contain a vector of length 10 that matches the pixel pattern to
+        a digit 0-9. Between each layer of the NN, the data in the vector is multiplied by
+        a series of weights and summed, along with the addition of a bias value, and then
+        squished by a sigmoid function to a value between 0 and 1, which is then placed into
+        the neurons of the next layer of the NN. This process continues until the output layer
+        <br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp; At this point, the values in the output
+        are practically random, so the NN must be trained. In training the NN, the values of
+        the weights and bias are either increased or decreased based on their relevance to
+        the final output. To find this relevance, the values of the output neurons are comapred
+        to a one-hot vector of an item that has been labeled (this means that the vector
+        for say the digit 3 would be [0,0,0,1,0,0,0,0,0,0], where the number 3 is a 1 and
+        all the other values are 0) by subtracting them, and then the difference is a
+        proportion on how much the corresponding output neuron's value needs to be changed
+        (so positive large numbers means it needs to be increased a lot, large negative
+        means decreased a lot, etc). Then, the cost differences are traced back to previous
+        layers in a process called backpropagation. The goal is to minimize the difference
+        between the expected values and found values (minimize the cost) and so different
+        weights and biases are tried until a minimum is found, at which point the NN
+        can make somewhat accurate predictions.
+      </p>
+
+       <p>
+         &nbsp;&nbsp;&nbsp;&nbsp; Whew! That was a lot to recall. Going back through the videos now, here's
+         where my explanation went wrong:
+       </p>
+
+       <li>
+         For an input layer of size n, there are n weights. This means that, for a
+         second hidden layer of size k, there will be k*n weights and k biases summed to
+         find one value, which is then squished by a sigmoid function, which is then the
+         value of one particular neuron in the hidden layer. Thus, for any hidden layer
+         of size k, there are k neurons containing a value that is:
+         sigmoid(a(0)*w(0) + a(1)*w(1) + ... + a(n)*w(n) + bias), where a is the activation from neuron
+         0...n of the previous layer, w is the corresponding weight, and n is the number
+         of neurons in that layer.
+       </li>
+       <li>
+         The cost of the difference comparing the output layer to the desired output
+         is found by taking the sum of the sqaures of the difference between the
+         found output and the desired output. The lower this cost, the better. The overall
+         cost is found by averaging the costs over many training iterations.
+       </li>
+       <li> "Gradient Descent" is an important term I neglected to mention. This is
+         the process of repeatedly nudging an input of a function by some multiple of the
+         negative gradient in order to get the output closer towards a minimum value,
+         which is in this case, the cost function (because we want the cost function as
+         minimized as possible). In this case, the inputs of the function are the
+         values of the weights and biases, and the negative gradient is what we
+         derive through backpropagation.
+       </li>
+       <li> The values of the negative gradient vector are what contain the information
+         about the relative importance and direction of weights so that the NN can
+         decide which changes to which weights matter the most towards decreasing the
+         output of the cost function.
+       </li>
+       <li> The process of backpropagation has a lot more subtleties that are hard to
+         explain and that I neglected to explain. For each training example, a layer
+         in the NN must keep track of the amount that it wishes to nudge its activation
+         value to get it towards the desired value. Then, all of the neurons in the previous
+         layer keep track of the average desired nudge value for their activation value,
+         and the process repeats recursively until one training example has developed
+         a vector of values that it wishes to nudge the input layer of the NN by. These
+         negative gradients are then averaged across multiple training examples (
+         a mini-batch has around say 100 training examples). Thus, the negative gradient
+         for the weights is derived and the weights can be altered to hopefully
+         lead to a more accurate prediction.
+       </li>
+       <p>
+         &nbsp;&nbsp;&nbsp;&nbsp; Hopefully now with this better understanding of basic NNs, I can look deeper into
+         understanding LSTM Networks and Recurrent Neural Networks!
+       </p>
+
+       <h3 class="header-font"> 2/20/19- Developing a Neural Network with Keras </h3>
+
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp; Now that I have a basic understanding of NNs, it's time to experiment with python's
+          NN frontend, keras, which is a powerful tool used to develop NN models. I followed
+          <a href="https://machinelearningmastery.com/tutorial-first-neural-network-python-keras/">this</a>
+          tutorial for building a simple NN in keras, writing my code as I went along and
+          providing extensive documentation to make sure I understand what each keras
+          command is actually doing. You can view my code here:
+        </p>
+        <iframe class="embedded" src="keras_first_network.txt" frameborder="1"></iframe>
+        <p>
+          &nbsp;&nbsp;&nbsp;&nbsp; After working through the tutorial, I decided to try and split the dataset
+          into 90% training and 10% testing, and my model ended up being around 78% accurate,
+          which isn't that great. Likely this is because the dataset is pretty small, and
+          I tried training the model with different epochs and batch sizes. Too many epochs,
+          and the model will become so good at predicting data that looks exactly like the training
+          data that it won't be able to classify other data, and too few epochs will lead to
+          overfitting, where the model incorrectly classifies values by generalizing. With
+          a little more time and a few more tutorials, I hope to be able to create my own
+          model in keras based on my own datasets. The next step for me is to look into
+          LSTM RNNs, that way, I can get to the Natural Language Processing (NLP) aspect of this
+          project!
+        </p>
+
+        <br>
+        <br>
+
+        <div class="page-change">
+          <a href="page_2.html" class="gen-font page-change"> Next Page </a>
+        </div>
+
+
+
+    </div>
+
+
+
+
+    <footer id="footer" class="gen-font">
+      Website by Alex Fantine, Copyright 2019
+    </footer>
+
+
+
+  </body>
+</html>

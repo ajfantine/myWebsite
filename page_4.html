@@ -1,0 +1,163 @@
+<!DOCTYPE = html>
+
+<html>
+  <head>
+    <style>
+    body{
+        background-color: #ffefcc
+    }
+    </style>
+    <title>Alex Fantine's Research</title>
+  </head>
+
+  <body>
+    <h2>  7/28-8/2- Generating Text using Neural Networks </h2>
+
+    <p>
+      Now that I have a minimal understanding of what neural networks are and how
+      they work, I figued it was time to embark on the journey of devloping text
+      generation networks. Using a few online tutorials, particularly
+      <a href= "https://www.kaggle.com/shivamb/beginners-guide-to-text-generation-using-lstms" >
+        this one </a>, I was able to create a few small text generation networks.
+      This tutorial was focused on  creating a news headline generator, and I then experimented
+      further by trying to create a comment generator using the NYT dataset I downloaded.
+    </p>
+
+    <p>
+      The key with text generation and machine learning is that a lot of data preprocessing
+      needs to occur first. I tried both character level generation and word level generation,
+      and each first requires the data to be mapped to integers so that the computer
+      can process them. This means that each unique token corresponds to a unique integer,
+      which is actually pretty simple for character generation (since there are only 26 letters
+      and 10 digits, the vocabulary size is around 36 integers). However, you've probably already
+      guessed by now that this becomes a little more complicated when performing at the word
+      level, since there is no fixed number of words. This means that vocabulary size is way higher,
+      often times in the thousands or hundreds of thousands, depending on the size of the corpus.
+    </p>
+
+    <p>
+      After the string data has been converted to integer data, it needs to be split
+      into input and output data. This is done by treating each sentence as a series
+      of sequences where the next word is the label, and the previous words are the input.
+      For example, the sentence "I kicked the ball" becomes:
+      <li> I: kicked </li>
+      <li> I kicked: the </li>
+      <li> I kicked the: ball </li>
+      Then, once your data is split into sequences, all of the sequences need to be padded
+      so that the input layer can accept them (input layers in keras only accepts data
+      of uniform shape). This requires finding the longest sequence and padding all the other
+      sequences with zeroes at the start. Once this has happened, the label data needs to be encoded to
+      one-hot vectors (a vector of size vocab size where the chosen word is encoded as a 1 and
+      everything else is encoded as a 0). Now, each label becomes a vector of size vocab_size, and in a
+      vocabulary of >100,000, this starts to become HUGE!
+    </p>
+
+    <p>
+      The model I used is pretty simple, with an embedding layer, a single LSTM layer,
+      a little bit of dropout, and the final dense layer, which would output a single word
+      from the vocabulary. It uses a categorical cross entropy function for loss
+      (measures the performance of the model with output between 0 and 1) since this is
+      a probability problem, where the model calculates the word with the highest probability of
+      occurring next in the sequence. The purpose of the embedding layer is to
+      map each input vector to indexes in a smaller (lower dimension) embedding matrix. This is helpful
+      to represent words in a more computationally efficient way, as opposed to one-hot encoding, which
+      can be very sparse (thousands of zeroes and a single one). Using an embedding layer
+      means I don't have to one-hot encode the input data, just the labels.
+    </p>
+
+    <p>
+      My headline generator delviered some interesting results. My personal favorites were:
+      <li> "Trump Invites Duterte For A Murder" </li>
+      <li> "States Call On Uber To Provide Tipping" </li>
+      <li> "President Carter Am I A Christian" </li>
+      <li> "I Survived A Sarin Gas Attack" </li>
+      <li> "Trumps Day Of Hardball And Confusion" </li>
+
+      As sensible as some of those were, I cherry picked them from lots of nonsensical headlines
+      and seemingly random sentences. As an experiment, I tried training the same model but
+      with a larger dataset (8x larger!) and lengthier embedding vectors, and the results were
+      interesting. At first, I tried a model with embedding size 32 and dropout of .1, and it was
+      taking forever to train and barely decreasing loss. I then tried an embedding size of 16
+      and a dropout of .2, since the dataset is so much larger, and the model trained much better.
+      Some of the interesting headlines from this model include:
+      <li> "Trump Is A Racist Period" </li>
+      <li> "States Are Doing What Scott Pruit Wont" </li>
+      <li> "Science Panel Cites Dangers in Vaping" </li>
+      <li> "President Warns Holdouts In Gop Over Immigration" </li>
+      <li> "America Needs Better Privacy Rules" </li>
+      <li> "What The Heck Is That" </li>
+      <li> "Republicans Must Stand Strong" </li>
+      <li> "Democrats Vow To Bar Gorsuch" </li>
+
+      I promise you a machine wrote all of those headlines! Now some of these make more
+      sense than the previous model's headlines using the same initial input word. In
+      particular, I'm impressed with the "Science," "President," and "America" ones, seeing
+      as all of those headlines actually relate their content. In the previous model,
+      the "Science" headline was "Science Lament Trumps Day Of Hardball" which honestly
+      doesn't make a lot of sense. However, this model's headline of "Science Panel
+      Cites Dangers In Vaping" seems like an accurate headline, because there might be a
+      Science Panel and it might perform an action like citing the dangers of a drug.
+      By training with a larger dataset, this model is able to better "learn" long and short
+      term dependencies. It recognizes that vaping might be considered dangerous, and that
+      citing such might be the responsibility of some subject, which in this case is a science
+      panel. Although there was overall less weird and random generation, the model tended
+      to fall apart after 5-7 words, since most headlines are that length. This model had
+      a few weird generations, like "I Dont Speak For Laura Impact" and
+      "A Little Variety Razzledazzle Of Few Schools."
+    </p>
+
+    <p>
+      Interestingly, you can see some trends in the data, just based on the few headlines
+      generated in the first version of the model. Hedalines generated with "Trump" as part of
+      the input usually contain a negative sentiment, like the headline about
+      "hardball and confusion" or him being a "racist period." This dataset is from the
+      New York Times, which tends to have a left leaning bias, so these generations
+      make sense. Moving forward, I'd like to see what a headline generator trained off
+      headlines from Fox News (a right leaning new source) would generate with the same
+      inputs, and then maybe perform a sentiment analysis or word association on both models.
+    </p>
+
+    <p>
+      As evidenced from the headline models I created, machine bias can seep into neural networks
+      with ease, especially when said model is trained on using data from a single source.
+      These experiments also raised some interesting questions with regards to falsified information,
+      seeing as the model was able to generate some pretty believable headlines that could
+      easily spread misinformation. If social media is used to proliferate machine-generated
+      news headlines with false information, there could be dangerous effects for the public.
+      Also, if organizations aren't properly filtering their training data or using data
+      from a variety of sources, it follows that a model could learn to classify in a skewed way.
+    </p>
+
+    <p>
+      One of the more interesting things I researched this week was a particular model called
+      GPT-2, developed by OpenAI and used for various text generation tasks. This model was trained on a dataset
+      called WebText which contained millions of webpages all with at least some level of
+      quality (upvoted at least three times on Reddit). This model is not a RNN using LSTM, but rather
+      a type of deep learning network called a "Transformer." I'm still looking into the specifics of
+      this kind of network, but I understand that it uses something called "Attention" mechanisms
+      to gather the important parts of the sentence and remember them going forward. GPT-2 is actually
+      able to perform other language tasks like comprehension, translation, summarization, etc. in addition
+      to generation, even though it wasn't trained to do those things. This is because it was trained
+      with so much data, and the researchers behind this concluded that a large language model trained
+      on a sufficiently large and diverse dataset is able to perform well across various domains, without
+      explicit supervision. You can read this fascinating paper
+      <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">
+        here </a> along with some of the mind-blowing examples from the generation.
+    </p>
+
+    <p>
+      My next research steps are to train a headline generator with a Fox News dataset, attempt
+      to perform some sentiment analysis or word association on the two models, learn about
+      Transformers and Attention, and look into generating things like sentences and potentially
+      a paragraph. I've already done some research on machine bias and ethics, and I still
+      plan on reading Cathy O'Neil's book, "Weapons of Math Destruction." I will keep this
+      blog updated with what I discover in the coming weeks!
+    </p>
+
+    <p> <a href= "page_3.html">Previous Page</a>
+      <br/> <a href="page_5.html">Next Page</a>
+    </p>
+
+  </body>
+
+</html>

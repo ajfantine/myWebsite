@@ -1,0 +1,266 @@
+/*Overall CSS */
+html{
+  scroll-behavior: smooth;
+}
+body{
+  /*background-color: var(--main-grey);*/
+  /*background: linear-gradient(to bottom, orange 0%, white 100%);*/
+  background: linear-gradient(to top, rgba(225,225, 225, 0) 0%, rgba(200,200,200, 1) 100%);
+  height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.gen-font{
+  font-family: 'Lato', sans-serif;
+  color: var(--main-navy);
+  font-size: 18px;
+}
+.header-font{
+  font-family: 'Audiowide', cursive;
+}
+
+/* Header CSS */
+.alex_header{
+  font-family: 'Audiowide', cursive;
+  width: 100%;
+  color: var(--main-grey);
+  /*using block takes up the entire width of the header, no matter amount of text */
+  display: block;
+  font-size: 5vw;
+  text-align: center;
+}
+.highlight{
+  color:var(--highlight);
+}
+.subheader{
+  font-family: 'Audiowide', cursive;
+  width: 100%;
+  color: var(--main-grey);
+  /*using block takes up the entire width of the header, no matter amount of text */
+  display: block;
+  font-size: 1.75vw;
+  text-align: center;
+}
+
+/* Slideshow CSS */
+img.home_slides{
+  width: 100%;
+  height: 300px;
+  display: none;
+  object-fit: contain;
+}
+.w3-badge {
+  height:13px;
+  width:13px;
+  padding:0;
+}
+.w3-left, .w3-right, .w3-badge {
+  cursor:pointer;
+}
+a.social-media:link, a.social-media:visited{
+  text-decoration: none;
+}
+a.social-media:hover, a.social-media:active{
+  color: var(--dark-grey);
+  text-decoration: none;
+}
+
+/*Menu CSS */
+#menu-bar{
+  border: solid 3px var(--main-navy);
+  background-color:var(--main-grey);
+}
+.menu-fixed{
+  position: fixed;
+  top:0;
+  width:100%;
+  z-index: 10;
+}
+.menu-item{
+  font-family: 'Audiowide', cursive;
+  /*font-family: 'Lato', sans-serif;*/
+  font-size: 2vw;
+  width: 25%;
+  color: var(--main-navy);
+}
+.menu-item:hover{
+  background-image: radial-gradient(orange, var(--highlight));
+}
+
+/*Home Page CSS */
+#home-container{
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  width:95%;
+  height:460px;
+  border-bottom: dotted 4px var(--main-navy);
+}
+#bio-container{
+  margin-top: 5%;
+  width: 100%;
+  height:275px;
+  /*border: 2px solid black;*/
+}
+#icon-div {
+  margin-top: 2.75%;
+  margin-left: 7%;
+  margin-right: 0px;
+  margin-bottom: 7%;
+  height: 175px;
+  float: left;
+  /*border: 2px solid black;*/
+}
+#icon-img{
+  float: left;
+  width:200px;
+  height:175px;
+  transform: rotate(90deg);
+  border: 2px solid var(--main-navy);
+}
+#bio{
+  /*margin-left: 100px;*/
+  float:left;
+  margin-top: 0%;
+  margin-left:5%;
+  width: 60%;
+  /*border: 2px solid black;*/
+}
+#bio-par{
+  text-align:justify;
+  font-size:22px;
+}
+
+/* About Page CSS */
+#about-anchor{
+  width:100%;
+  height:120px;
+}
+#about-content{
+   height: 675px;
+   margin-left: 2.5%;
+   margin-right: 2.5%;
+   width:95%;
+   border-bottom: dotted 4px var(--main-navy);
+}
+#about{
+  padding-top: 100px;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-bottom: 115px;
+  font-size: 20px;
+}
+
+/*Research Page CSS */
+#research-anchor{
+  width:100%;
+  height:120px;
+}
+#research-content{
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  width:95%;
+  height:675px;
+  border-bottom: dotted 4px var(--main-navy);
+}
+#research{
+  padding-top: 75px;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-bottom: 115px;
+  font-size: 20px;
+  display: block;
+  height: 375px;
+}
+div.link-button{
+  width: 75%;
+  border: solid 2px var(--main-navy);
+  border-radius: 10px;
+  margin-top:15px;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
+  margin-bottom: 15px;
+  height: 50px;
+  font-size: 20px;
+  display:inline-block;
+  padding:8px 16px;
+  text-align: center;
+  background-color: var(--main-grey);
+
+}
+div.link-button:hover{
+  background-image: radial-gradient(orange, var(--highlight));
+  width: 78%;
+  margin-top: 10px;
+  margin-left: 11%;
+  margin-right: 11%;
+  margin-bottom: 10px;
+  height: 60px;
+  text-align: center;
+  vertical-align: bottom;
+  font-size: 23px;
+}
+a.link-button{
+  text-decoration: none;
+  display: block;
+  color: var(--main-navy);
+  width: 100%;
+}
+
+/*Project Page CSS */
+#project-anchor{
+  width:100%;
+  height:120px;
+}
+#project-content{
+   height: 575px;
+}
+#project{
+  padding-top: 75px;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-bottom: 115px;
+  font-size: 20px;
+  display: block;
+  height: 375px;
+}
+
+@media screen and (max-width:800px){
+  #bio-container{
+    margin-top: 5%;
+  }
+  #icon-div {
+    margin-top: 7%;
+    margin-left: 3%;
+  }
+  #bio{
+    margin-left: 25px;
+  }
+  #bio-par{
+    font-size: 16px;
+  }
+  #about-anchor{
+    height:60px;
+  }
+  #about  {
+    font-size: 16px;
+    padding: 50px;
+    padding-bottom: 110px;
+  }
+  #research-anchor{
+    height:60px;
+  }
+  #research{
+    font-size: 16px;
+    padding: 50px;
+    padding-bottom: 110px;
+  }
+  #project-anchor{
+    height:60px;
+  }
+  #project{
+    font-size: 16px;
+    padding: 50px;
+    padding-bottom: 110px;
+  }
+}

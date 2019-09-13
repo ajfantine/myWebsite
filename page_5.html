@@ -1,0 +1,151 @@
+<!DOCTYPE = html>
+<html>
+  <head>
+    <style>
+    body{
+        background-color: #ffefcc
+    }
+    </style>
+    <title>Alex Fantine's Research</title>
+  </head>
+
+  <body>
+    <h2> 8/3-8/9- Fixing a LSTM Text Generator </h2>
+
+    <p>
+      To be honest, I saw this one coming.
+
+      Okay, maybe I didn't expect this to be my biggest problem. I had only heard of overfitting
+      in relation to machine learning classifiers giving the wrong labels to images or something.
+      I didn't expect that my headline generators would be suffering from overfitting because I
+      didn't realize they even could!
+
+      That's right, those headlines I told you about last week, my prides and joys, were stricken from
+      me as I've now realized that some of them appear verbatim in the training data! The NYT headlines
+      dataset was so large I didn't even think to check it and compare it with my generated headlines;
+      instead, I took those generations at face-value for the deceits they were!
+    </p>
+
+    <p>
+      Maybe I'm just being dramatic, but it did feel like a big blow when I realized the super
+      realistic headlines that I just bragged about were only super realistic because they were
+      literally real. To revise what I discussed in my last blog post, with specfic regard to
+      my "Science Panel Cites Dangers of Vaping" example, the LSTM learning process does truly work
+      like that. The algorithm selectively forgets and in turn remembers certain parts of the input
+      text, thus generating coherent text. However, that particular example occurs verbatim in
+      the training data. This is a perfect demonstration of both the concept of overfitting and
+      the idea that bias from the training data can seep into the model. But I don't want to create
+      a model that just regurgitates data from the training set, because then it's not event a real
+      text generator, it's just a text reflector! I also noticed that my model would generate
+      the same (sometimes regurgitated) headline each time I ran it, meaning with one seed word,
+      there was only one generation option. Why was this happening?
+    </p>
+
+    <p>
+      Thinking about how the text generation model works, the logical answer to this question
+      is that when I ask the model to make a prediction, it returns the probability of each
+      word in the vocabulary to occur next. This means that if I take the maximum probability
+      among that list, it will always be the same word. So starting with "trump," if the
+      word with the highest probability of occuring next is "is," then the model will always
+      generate that word. And thus the cycle will continue. My first thought to solve this would
+      be to have the model generate the next word with some randomness, such that it chooses a
+      word with a high (but not necessarily the highest) probability. I looked online for a couple
+      of other LSTM text generators and discovered
+      <a href="https://github.com/keras-team/keras/blob/master/examples/lstm_text_generation.py" > this one </a>
+      from keras' examples. The key difference between this model and my model is that this one
+      calls on a "sample" method to generate the next word. Here is my edited version of that method,
+      with comments explaining the math:
+    </p>
+    <code>
+      def sample_c(preds, temperature=1.0):
+          #turns preds into a numpy array continaing 64 bit floats
+          #this is to allows for the larger math later on and keep
+          #the array values consistent
+          preds = np.asarray(preds).astype('float64')
+
+          #the diversity value must be factored into the values
+          #np.log takes the natural log of each element in peds
+          #np.exp finds the exponential of each element, which is just x^e where e~2.7
+          #after some math, these operations can be condensed into one operation
+          exp_preds = preds ** (1.0/temperature)
+
+          #normalizes each element based on sum of exp_preds
+          preds = exp_preds / np.sum(exp_preds)
+
+          #takes experiments with one of p possible outcomes, in this case, preds is the
+          #probabilites of each of the p different outcomes, p is equal to size of vocab
+          #the more experiments performed, the more likely the new diverse probabilities
+          #get closer to the original probabilities
+          #probas is an array of mostly zeroes and a one, which represents the word that
+          #the multinomial distribution chose
+          probas = np.random.multinomial(1, preds, 1)
+
+          #this just returns the index of that one
+          return np.argmax(probas1)
+        </code>
+
+        <p>
+          It's a pretty simple function, really. The most important thing it does is
+          incorporate the diversity value into each probability, which allows for, as the
+          name implies, more diverse generation. Basically, the larger the diversity value,
+          the more likely it is for the model to generate a word further away from the
+          word with the highest probability value. Crank the diversity up to anything >5 and
+          the generated headline is some gibberish with a bunch of random words. Let the
+          diversity value get too low, however, and the model resorts to generating the
+          headline with the highest probability of occuring, which is almost guaranteed to
+          be a repeat from training data.
+        </p>
+
+        <p>
+          With this sampling method in tow, I also added a filter to the generator so that
+          it would count the number of sequences repeated from the training data and I could
+          then decide what would be the cutoff amount (I felt like 3 was fair, since I would
+          expect the model to generate bigrams pretty often but I wouldn't want to accept any more
+          than 3). Knowing what I now know about the diversity value, I figured that what might
+          work better is to start the sentence with a higher diversity and then decrease the diversity
+          after the first few words are generated; this way, the model wouldn't repeat the training
+          data off the bat. This didn't really work as well as I'd wanted it to, but it led
+          me to the discovery that I could set a different diversity for each word, almost like
+          weights in a neural network. In a neural network, weights get set by checking whether the model
+          made a successful prediction, minimizing the cost function, and backpropagating across
+          the model, changing the weights little by little each time. But how would I do this when
+          I'm not trying to change the weights of a network, rather I'm trying to change some
+          denominators for a fraction? I'd first need some way to check and see if the generated
+          headlines were any more "realistic" than previous generated ones... which sounds a lot
+          like a classification problem... which sounds a lot like something a neural network might help
+          with... if you can tell where I'm going with this, you'll be as worried for me as I am!
+        </p>
+
+        <p>
+          Messing around with all of this code and this generator has taken up a lot of my time, and
+          I'm excited because I feel like I'm onto something that might help improve my headline generator.
+          I know headlines weren't what I initially wanted to be generating, but the more I mess around with
+          them, the more I think that they're a great first step, since it's pretty east to identify
+          training bias based on the source of the data (I've been using New York Times headlines
+          and I experimented with Fox headlines, which are prety universally known as left and right
+          leaning news sources, respectively) and see how that bias reflects in the generated headlines.
+          As for what comes next, I have to narrow the focus of this project so I can get something substantial
+          finished before the semester begins. I'll focus on creating a classifier that decides whether a headline
+          is real or fake, which I can train against the generator, simulating a generative adversarial network
+          (GAN), where the classifier gives feedback on multiple iterations of generation with different
+          diversities. Hopefully, this will allow me to find the "best" diversity value for each word, starting
+          with five-word headlines. This should increase the belivability of my generated headlines, I just
+          have to be careful not to let headlines from the training data enter the classifier, otherwise
+          it might reinforce repeated headlines (which doesn't solve the issue that I started this blog
+          post trying to fix)! As for learning about machine bias, I still plan on reading through Cathy O'Neil's
+          book, "Weapons of Math Destruction."
+        </p>
+
+        <p>
+          Oh, and you can view the code for my headline generator (version 3!!!) below:
+
+            <iframe width="560" height = "315" src="text-gen-headlines-v3.py" frameborder="1"></iframe>
+        </p>
+
+        <p> <a href= "page_4.html">Previous Page</a>
+          <br/> <a href="page_6.html">Next Page</a>
+        </p>
+
+  </body>
+
+</html>

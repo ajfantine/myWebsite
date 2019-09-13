@@ -1,0 +1,118 @@
+<!DOCTYPE = html>
+
+<html>
+  <head>
+    <style>
+    body{
+        background-color: #ffefcc
+    }
+    </style>
+    <title>Alex Fantine's Research</title>
+  </head>
+
+  <body>
+    <h2> 8/22-8/27- Reading About Bias in Machine Learning </h2>
+
+    <p>
+      For the last leg of my summer research project, I've been reading Cathy O'Neil's enlightening novel,
+      "Weapons of Math Destruction." This book, as the tagline puts it, focuses on "how big data increases
+      inequality and threatens democracy." Yeah, I know, it's some pretty heavy stuff- but understanding how human biases
+      play into mathematical models and machine learning algorithms is incredibly important to both
+      society and the individual, as O'Neil makes clear in her novel. It's almost absurd how often data analysis and
+      machine learning programs play into our daily lives, and in this book, O'Neil takes the time to highlight
+      a few of the most egregious examples of the big bad big data.
+    </p>
+
+    <p>
+      The first question you may be asking yourself is "how can computers possibly be biased?" Fret not, dear reader, as
+      I too wondered that- I mean, computers are supposed to be numbers and math and logic, there shouldn't be a
+      way for them to be racist or homophobic or any other horrible thing. The key here is that the computers themselves
+      aren't biased, they truly are just a collection of mechanical parts speaking in zeroes and ones. Rather, the data we
+      provide our computers to build models and learn is biased, because the data is inherently a reflection of our human biases.
+      In the book, O'Neil highlights the three main components of "Weapons of Math Destruction," or "WMD"s. A WMD
+      is:
+        <ul>
+          <li> opaque and often invisible, purposefully camoflauging it's algorithm as some sort of black box magic math
+        that works logically and without fail. </li>
+          <li> built with some component of unfairness to it, often working against the best interest
+            of some group of people. </li>
+          <li> easily scalable and has the potential to grow exponentially, meaning its unfairness
+            can spread like wildfire. </li>
+        </ul>
+      </p>
+
+      <p>
+        Another huge component of WMDs that O'Neil highlights is their tendency to create self-reinforcing
+        feedback loops, where the data that the model predicts leads to an outcome that confirms that prediction.
+        One nefarious example is a recidivism model that many judges use to dictate the length and severity of
+        sentencing. Prisoners would be judged based on their likelihood to commit another crime, using metrics
+        like where they live, who they associate with, and how many interactions they've had with the police (policing
+        itself is a model that generates self-reinforcing feedback loops that preys specifically on black men
+        and other POC) and more. These prisoners then receive longer and more severe punishments, with the idea
+        that they will stay behind bars longer. Unfortunately, when they get out, it's far harder to get a job,
+        apply for a loan, get caught up on learning new skills, and thus they often end up committing another crime,
+        which just confirms that the model made the correct prediction. Oftentimes these are people living in poor communities,
+        struggling to get by, or minorities and POC that are already preyed on by police. Thus, as O'Neil puts it,
+        "the result is that we criminalize poverty, believing all the while that our tools are not only
+        scientific but fair."
+      </p>
+
+      <p>
+        One of the main reasons so many algorithms that rely on big data devolve into WMDs are their reliance
+        on what O'Neil coins "data proxies," or metrics that serve as stand-ins for more relevant metrics.
+        These proxies end up polluting the data in in turn creating biased algorithms that hurt large groups of people.
+        Things like zip codes and friends lists serving as proxies for race when making judgements
+        about people defaulting on their loans is just as bad as considering race itself in the equation, yet the
+        creators behind the algorithms and the companies employing these algorithms convince themselves that just because they aren't
+        using race explicitly, their judgements aren't racially biased. So, one of the most important conclusions about
+        regulating machine learning and WMDs is that it's okay to discard certain data points in order to make a more
+        fair model. The mathematicians and engineers behind the model need to consider the objectives of the model, and potentially
+        refine the model to put more emphasis on fairness. Also, making sure all of the data being used is strictly relevant
+        to reaching that objective- often times, it isn't. This was demonstrated in one of the experiments I performed a while back,
+        where I found that my sign predictor performed better when it didn't have the sum as the fourth value and could
+        instead come to its own conclusions without placing too much weight on the wrong data. In a supervised network, it's absoutely
+        vital to make sure (and have outside consulting make sure) that the features being used to build the model are strictly relevant
+        and not proxies.
+      </p>
+
+      <p>
+        There is also something to be said for considering certain things that models might initially turn a blind eye to and incorporating
+        those into the construction of the model. This is specifically important for unsupervised learning tasks, where the features are
+        not defined for the model and it instead relies on patterns in the data. Depending on the data, models could learn to be incredibly
+        biased, even going as far as to turn into sexist and misogynistic models. As O'Neil puts it, "we need to impose human
+        values on these systems," that way, models can adjust for institutionalized injustices. Things such as race and gender, which are usually
+        ignored in favor of proxies that end up embedding the disadvantages that minority groups face anyway, could be used as data to
+        counteract said disadvantages.
+      </p>
+
+      <p>
+        Much of what I've discussed has been about implementing changes at the algorithmic level, which is the area that I'm
+        the most interested in. It's important that the data models are being trained on, especially unsupervised learning models, is
+        as diverse and representative of different populations as possible. If not, programmers need to build-in coutermeasures or make
+        sure that the effects of that lack of diersity aren't harming a particular constituency. However, O'Neil also discusses a lot
+        of changes that can be implemented at a policy level, after the model may have been coded. One of the biggest issues with WMDs is
+        their opacity, and how confusing or obtuse they can seem to the average person. It's important that people are eductated and informed on
+        not only the data being collected to fuel these algorithms, but how it's being interpreted and how their lives are being shaped by
+        big data algorithms. Companies that employ these techniques need to be held accountable so that they aren't allowed to perpetuate
+        injustices or ruin lives (and usually the lives being ruined are the ones in need of the most help). O'Neil also discusses how
+        necessary it is for an algorithm's objective to be shaped around a positive rather than a negative. For example, instead of using
+        big data to determine the worst performing employees at a company so they can be terminated, use that data to determine the stars of the
+        company and encourage them to stay, or figure out ways to improve the performance of the lower-scoring employees. This helps eliminate
+        the second aspect of a WMD- the unfairness. If no people are being punished by an algorithms prediction and instead people are being
+        encouraged or assisted, the model becomes less of a WMD.
+      </p>
+
+      <p>
+        I'm really glad that I read this book as part of my research. Not only did it enlighten me on many of the frightening aspects
+        of big data and machine learning, but it also made me a little hopeful that people wil start to recognize the need for reform in
+        this area and work to encourage transparency, justice, and the engineering of better models and algorithms. I'm excited to be
+        a part of an industry that's expanding so rapidly and playing such a major part in peoples lives, and I'm encouraged more
+        than ever to educate, assist, and improve what I can to make technology work better and fairer for all people.
+      </p>
+
+      <p> <a href= "page_7.html">Previous Page</a>
+        <br/> <a href="page_9.html">Next Page</a>
+      </p>
+
+    </body>
+  </html>

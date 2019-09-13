@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="author" content="Alex Fantine">
+    <meta charset="UTF-8">
+    <meta name="description" content="Testing grounds for learning HTML">
+    <meta name="keywords" content="learning, HTML, search engine">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_blank">
+    <style>
+      #spec_par {
+        color: green;
+        font-size: 150%;
+        font-family: monospace;
+      }
+
+      p.spec_class {
+        color: grey;
+        font-size: 200%;
+      }
+
+      a.link_button:link, a.link_button:visited{
+        background-color: #f44336;
+        color: white;
+        padding: 15px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      a.link_button:hover, a.link_button:active{
+        background-color: red;
+      }
+
+      table, th, td {
+        border: 1px solid black;
+
+      }
+
+      th, td{
+        padding: 15px;
+      }
+
+      table{
+        border-spacing: 15px;
+      }
+
+      #menu_ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+      }
+
+      li.menu{
+        float:left;
+      }
+
+      li a.menu_a{
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 10px 45px;
+        text-decoration: none;
+      }
+
+      li a.menu_a:hover{
+        background-color: #111111;
+      }
+
+      #test_script{
+        display: block;
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 15px;
+      }
+
+    </style>
+    <title>Alex Fantine's Research</title>
+    <!-- this external css only affects h1 and the page baclground color -->
+    <link rel = "stylesheet" href="testing_styles.css">
+
+    <!-- IMPORTANT: this is the W3 CSS, has a lot of cool options, look at tutorials later -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+
+  <body>
+
+    <h1> heading 1 using external css font sans-serif</h1>
+
+    <button> Button 1 </button>
+
+    <p> want to jump further down?
+      <a href="#jump" target="_self"> click here </a>
+
+    <p title = "wee woo", style="color:red"> hover over this <br> for fun </p>
+    <hr>
+    <pre>
+ All I have to say
+is that this
+looks like a poem.
+    </pre>
+
+    <hr>
+    <p style=
+    "color:yellow;
+    font-family:verdana;
+    font-size: 150%;
+    text-align: center;
+    background-color:rgba(0,0,255,0.5)">
+    <!-- the a allows you to add transparency, otherwise use rgb(x,y,z) -->
+    This is some really special text!
+    </p>
+
+    <p>
+      <!-- other types: disc (default), circle, none -->
+      <ul style="list-style-type:square;">
+        <li> <b> bold </b> </li>
+        <li> <strong> added semantic strong importance? </strong> </li>
+        <li> <i> italic </i> </li>
+        <li> <em> important italics? </em> </li>
+        <li> <small> small </small> </li>
+        <li> <mark> marked text </mark> </li>
+        <li> <del> strikethrough </del> </li>
+        <li> <ins> underlined </ins> </li>
+        <li> this text is <sub> subscripted </sub> </li>
+        <li> this text is <sup> superscripted </sup> </li>
+      </ul>
+    </p>
+
+    <p> I want to <q> quote this text </q> </p>
+
+    <!-- this is how you comment in html! some useful tags are:
+    <abbr> for defining abbreviations
+    <address> for defining contact information
+    <bdo> for defining text direction?
+    <blockquote> for defining large quotes, usually indented
+    <cite> for defining titles
+    <q> for quoting short bits of text -->
+
+    <p style =
+    "border: 1px solid red;
+    padding: 30px;
+    margin: 50px;
+    text-align: center;"> text with border, padding above and below, and
+  margins to the side </p>
+
+  <p id="spec_par"> spec_par </p>
+
+  <p class= "spec_class"> spec_class (works for multiple elements) </p>
+
+  <!-- for target, "_blank" opens in new tab
+  "_self" opens in current tab -->
+  <a class = "link_button" href = "index.html" target="_blank"> click to go to index </a>
+  <br>
+  <br>
+  <a href="index.html" target="_blank"> <img src="test_image.png" alt="Test Image" style="width:42px;height:42px;border:0"></a>
+
+  <p id="jump">
+    here's where you landed! </p>
+
+  <img src="test_image.png" alt="Test Image" width="150" height = "150">
+  <!--alternatively, use:
+  <img src="test_image.png" alt="Test Image" style = "width:500px;height:600px;">
+  -->
+  <p><img src="test_image.png" alt="Test Image" style= "float:left;width:35px;height:35px;">image floated to the left</p>
+  <br>
+  <p style = "background-image:url('test_image.png');"> This text is in front of an image. </p>
+
+  <br>
+
+  <table style="width:50px">
+    <!-- add "border-collapse:collapse;" under table in styles to make border one line  -->
+    <caption>Test table</caption>
+    <tr>
+      <th> column 1 </th>
+      <th> column 2 </th>
+      <th> column 3 </th>
+    </tr>
+
+    <tr>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+    </tr>
+
+    <tr>
+      <td>d</td>
+      <td>e</td>
+      <td>f</td>
+    </tr>
+
+    <tr>
+      <td>g</td>
+      <td style="text-align:center;" colspan="2">h</td>
+      <!-- there is also a "rowspan" option for values spanning multiple rows -->
+    </tr>
+  </table>
+
+  <!-- other types: 1 (numbers), a (lowercase), I (uppercase roman), i (lowercase roman) -->
+  <ol type="A">
+    <li> first </li>
+    <li> second </li>
+    <li> third </li>
+  </ol>
+
+  <dl>
+    <dt> item </dt>
+    <dd> -description </dd>
+  </dl>
+
+  <ul id="menu_ul">
+    <li class= "menu"> <a class="menu_a" href="index.html"> button1 </a></li>
+    <li class= "menu"> <a class="menu_a" href="index.html"> button2 </a></li>
+    <li class= "menu"> <a class="menu_a" href="index.html"> button3 </a></li>
+    <li class= "menu"> <a class="menu_a" href="index.html"> button4 </a></li>
+    <li class= "menu"> <a class="menu_a" href="index.html"> button5 </a></li>
+  </ul>
+  <br>
+  <div style="background-color:black; color:white; padding:20px;">
+    <p> this is some white words on a black bg, demonstrating the div tag! </p>
+  </div>
+
+  <h2> demonstrating <span style="color:red">the span </span> tag </h2>
+
+  <iframe src="float_test.html" style="height:300px; border:2px solid blue;" width="100%"></iframe>
+
+  <p id="test_script"> </p>
+
+  <!-- javascript can also change HTML styles and attributes, like src or style.color -->
+  <script>
+    var rand_num = Math.floor(Math.random() * 11)
+    document.getElementById("test_script").innerHTML = "random number: "+ rand_num;
+  </script>
+
+  <!-- html to refresh document at 30 second intervals (put meta in the head):
+  <meta http-equiv="refresh" content="30"
+  the tag <base> defines a default address for links on a page (useful if all images in separate folder)
+  and can define default target-->
+
+  <br>
+  <code>
+    x = 5; <br>
+    y = 10; <br>
+    z = x + y;
+  </code>
+
+  <p></p>
+
+  <form>
+    Enter a word: <br>
+    <input type="text" name="word"><br>
+    Enter a second word: <br>
+    <input type="text" name="second_word"><br>
+  </form>
+  <br>
+
+  <form>
+    <select id="game_dropdown" onchange="game_function()">
+      <option value="none"></option>
+      <option value="The Last of Us">The Last of Us</option>
+      <option value="Breath of the Wild">Breath of the Wild</option>
+      <option value="Red Dead Redemption 2">Red Dead Redemption 2</option>
+    </select>
+
+    <p>Your favorite game is: <input type="text" id="game_output"> </p>
+    <p>Your favorite game is <span id="game_output2"></span></p>
+  </form>
+
+  <script>
+    function game_function(){
+
+      //console.log("game: " + game);
+      document.getElementById("game_output").value = game_dropdown.options[game_dropdown.selectedIndex].text;
+
+      var game = document.getElementById("game_dropdown").value;
+      document.getElementById("game_output2").innerHTML = game + "!";
+    }
+
+  </script>
+
+
+
+
+  </body>
+</html>

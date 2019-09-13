@@ -1,0 +1,187 @@
+.gen-font{
+  font-size: 20px;
+}
+
+/* Footer */
+#footer{
+  text-align: center;
+  font-size: 12px;
+}
+
+#blog-home{
+  padding: 50px 50px;
+  font-size: 20px;
+}
+
+.blog-content{
+  padding:50px 150px;
+}
+h3.header-font{
+  font-family: 'Audiowide', cursive;
+  text-align:center;font-size:3.5vw;
+  font-style: italic;
+}
+
+/* The  timeline container */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: var(--main-navy);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: 1px;
+
+}
+
+/* Container around content */
+.container {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
+/* The circles on the timeline */
+.container::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -17px;
+  background-color: var(--main-navy);
+  border: 4px solid var(--highlight);
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Place the container to the left */
+.left {
+  left: 0;
+}
+
+/* Place the container to the right */
+.right {
+  left: 50%;
+}
+
+/* Add arrows to the left container (pointing right) */
+.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
+  border: medium solid var(--main-navy);
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent var(--main-navy);
+}
+
+/* Add arrows to the right container (pointing left) */
+.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
+  border: medium solid var(--main-navy);
+  border-width: 10px 10px 10px 0;
+  border-color: transparent var(--main-navy) transparent transparent;
+}
+
+/* Fix the circle for containers on the right side */
+.right::after {
+  left: -8px;
+}
+
+/* The actual content */
+.timeline-button {
+
+  background-color: var(--main-grey);
+  border: solid 2px var(--main-navy);
+  position: relative;
+  border-radius: 6px;
+
+}
+.timeline-button:hover{
+  background-image: radial-gradient(orange, var(--highlight));
+  cursor: pointer;
+}
+div a.timeline-link{
+  text-decoration: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 30px;
+  padding-bottom: 5px;
+  display: block;
+}
+.date{
+  margin-top: -10px;
+  margin-left: 0;
+  text-align: center;
+}
+.timeline-text{
+  margin-left: 0px;
+  margin-top: 0px;
+  font-style: italic;
+  font-size: 20px;
+  text-align: center;
+}
+.embedded{
+  width: 100%;
+  height: 315px;
+  border: dotted var(--main-navy) 3px;
+}
+div a.border-link{
+  display: block;
+  z-index: 10;
+}
+div.page-change{
+  text-align:center;
+  display:block;
+}
+a.page-change{
+  text-decoration:none;
+  padding: 5px 5px;
+  border: 2px solid var(--main-navy);
+  border-radius: 5px;
+  background-color: var(--main-grey);
+}
+a.page-change:hover{
+  background-image: radial-gradient(orange, var(--highlight));
+  padding: 7px 7px;
+  font-size: 22px;
+}
+
+@media screen and (max-width:800px){
+  #blog-home{
+    font-size: 16px;
+    padding: 25px 25px;
+  }
+  .gen-font{
+    font-size: 16px;
+  }
+
+  .blog-content{
+    padding:50px 50px;
+  }
+
+  a.page-change:hover{
+    background-image: radial-gradient(orange, var(--highlight));
+    padding: 7px 7px;
+    font-size: 18px;
+  }
+}
